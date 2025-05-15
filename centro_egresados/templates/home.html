@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Home{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>¡Bienvenido, {{ user.username }}!</h1>
+    <p class="lead">Esta es tu página de inicio personalizada.</p>
+
+    <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Cerrar sesión</a>
+</div>
+{% endblock %}
