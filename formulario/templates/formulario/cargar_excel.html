@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Cargar base de datos desde Excel</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Cargar</button>
+    </form>
+</div>
+{% endblock %}

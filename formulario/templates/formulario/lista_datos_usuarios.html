@@ -68,7 +68,12 @@
     <h2 style="margin: 0;">Base de datos</h2>
     <div style="margin-left: auto;">
         <a href="{% url 'exportar_excel' %}" style="background-color: #07517f; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-left: 10px;">Descargar</a>
-        <a href="#" style="background-color: #07517f; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-left: 10px;">Cargar</a>
+        <form action="{% url 'cargar_excel' %}" method="post" enctype="multipart/form-data" style="display:inline;">
+    {% csrf_token %}
+    <input type="file" name="archivo_excel" accept=".xls,.xlsx" required>
+    <button type="submit" style="background-color: #07517f; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Cargar</button>
+</form>
+
     </div>
 </div>
 
@@ -79,42 +84,38 @@
     <table>
         <thead>
             <tr>
-                <th>Nombre completo</th>
-                <th>Cédula</th>
                 <th>Año de graduación</th>
                 <th>Sede</th>
                 <th>Programa</th>
+                <th>Nombre completo</th>
+                <th>Cédula</th>
                 <th>Género</th>
                 <th>Celular</th>
                 <th>Correo</th>
-                <th>País</th>
-                <th>Ciudad</th>
+                <<th>Pais</th>>
+                <<th>Ciudad</th>>
                 <th>Temas de interés</th>
                 <th>Área de bienestar</th>
                 <th>Otras actividades</th>
-                <th>Tipo de evento</th>
-                <th>Modalidad</th>
                 <th>Observaciones</th>
             </tr>
         </thead>
         <tbody>
             {% for dato in datos %}
             <tr>
-                <td>{{ dato.nombre_completo }}</td>
-                <td>{{ dato.cédula }}</td>
-                <td>{{ dato.año_de_graduacion }}</td>
+                <td>{{ dato.AñoGraduacion }}</td>
                 <td>{{ dato.sede }}</td>
                 <td>{{ dato.programa }}</td>
+                <td>{{ dato.NombreCompleto }}</td>
+                <td>{{ dato.cedula }}</td>
                 <td>{{ dato.genero }}</td>
                 <td>{{ dato.celular }}</td>
                 <td>{{ dato.correo }}</td>
-                <td>{{ dato.país_de_residencia }}</td>
-                <td>{{ dato.ciudad_de_residencia }}</td>
-                <td>{{ dato.temas_eventos }}</td>
-                <td>{{ dato.areas_bienestar }}</td>
-                <td>{{ dato.otras_actividades }}</td>
-                <td>{{ dato.tipo_evento }}</td>
-                <td>{{ dato.modalidad_evento }}</td>
+                <td>{{ dato.pais }}</td>
+                <td>{{ dato.ciudad }}</td>
+                <td>{{ dato.TemasEventos }}</td>
+                <td>{{ dato.AreasBienestar }}</td>
+                <td>{{ dato.OtrasActividades }}</td>
                 <td>{{ dato.observaciones }}</td>
             </tr>
             {% empty %}

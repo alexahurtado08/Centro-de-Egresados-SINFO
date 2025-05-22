@@ -10,23 +10,22 @@ class DatosUsuarioResource(resources.ModelResource):
 class DatosUsuarioAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = DatosUsuarioResource
     list_display = (
-        'user',
-        'nombre_completo',
-        'cédula',
-        'año_de_graduacion',
+        'AñoGraduacion',
         'sede',
         'programa',
+        'NombreCompleto',
+        'cedula',
         'genero',
         'celular',
         'correo',
-        'país_de_residencia',
-        'ciudad_de_residencia',
-        'temas_eventos',
-        'areas_bienestar',
-        'tipo_evento',
-        'modalidad_evento',
+        'pais',
+        'ciudad',
+        'TemasEventos',
+        'AreasBienestar',
+        'OtrasActividades',
+        'observaciones',
     )
-    search_fields = ('nombre_completo', 'cédula', 'correo')
-    list_filter = ('sede', 'programa', 'genero', 'modalidad_evento')
+    search_fields = ('NombreCompleto', 'cedula', 'correo')
+    list_filter = ('sede', 'programa', 'genero')
 
 admin.site.register(DatosUsuario, DatosUsuarioAdmin)
