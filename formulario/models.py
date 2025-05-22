@@ -3,12 +3,8 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
 class DatosUsuario(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Relación con el usuario
-
-    nombre_completo = models.CharField(max_length=200)
-    cédula = models.CharField(max_length=20)
-    año_de_graduacion = models.IntegerField()
-    
+    user = models.OneToOneField(User, on_delete=models.CASCADE) 
+    AñoGraduacion = models.IntegerField()# Relación con el usuario  
     sede = models.CharField(max_length=50, choices=[
         ('Medellín', 'Medellín'),
         ('Pereira', 'Pereira'),
@@ -29,7 +25,8 @@ class DatosUsuario(models.Model):
         ('Ingeniería de software', 'Ingeniería de software'),
         ('Medicina', 'Medicina'),
     ])
-    
+    NombreCompleto = models.CharField(max_length=200)  
+    cedula = models.CharField(max_length=20)
     genero = models.CharField(max_length=10, choices=[
         ('Femenino', 'Femenino'),
         ('Masculino', 'Masculino'),
@@ -38,14 +35,14 @@ class DatosUsuario(models.Model):
     
     celular = models.CharField(max_length=20)
     correo = models.EmailField()
-    país_de_residencia = CountryField(blank_label='Seleccione un país')
-    ciudad_de_residencia = models.CharField(max_length=100, blank=True)
-    temas_eventos = models.CharField(max_length=10, choices=[
+    pais = CountryField(blank_label='Seleccione un país')
+    ciudad = models.CharField(max_length=100, blank=True)
+    TemasEventos = models.CharField(max_length=10, choices=[
         ('Cursos', 'Cursos'),
         ('Diplomados', 'Diplomados'),
         ('Talleres', 'Talleres'),
     ])
-    areas_bienestar = models.CharField(max_length=50, choices=[
+    AreasBienestar = models.CharField(max_length=50, choices=[
         ('Deporte', 'Deporte'),
         ('Recreación', 'Recreación'),
         ('Cultura', 'Cultura'),
@@ -53,19 +50,6 @@ class DatosUsuario(models.Model):
         ('Desarrollo Humano', 'Desarrollo Humano'),
         ('Promoción Socioeconómica', 'Promoción Socioeconómica'),
     ])
-    otras_actividades = models.TextField()
-    tipo_evento = models.CharField(max_length=50, choices=[
-        ('Académico-Social', 'Académico-Social'),
-        ('Académico-Cultural', 'Académico-Cultural'),
-        ('Socio-Cultural', 'Socio-Cultural'),
-        ('Otro', 'Otro'),
-    ])
-    modalidad_evento = models.CharField(max_length=10, choices=[
-        ('Presencial', 'Presencial'),
-        ('Virtual', 'Virtual'),
-        ('Mixto', 'Mixto'),
-    ])
+    OtrasActividades = models.TextField()
     observaciones = models.TextField(blank=True)
 
-    def __str__(self):
-        return f"{self.user.username} - {self.nombres_apellidos}"
