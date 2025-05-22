@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Base de Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            color: #07517f;
+            margin: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-group button {
+            background-color: #07517f;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .button-group button:hover {
+            background-color: #063b5d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th {
+            background-color: #07517f;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin: 0;">Base de datos</h2>
+    <div style="margin-left: auto;">
+        <a href="#" style="background-color: #07517f; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-left: 10px;">Descargar</a>
+        <a href="#" style="background-color: #07517f; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-left: 10px;">Cargar</a>
+    </div>
+</div>
+
+</div>
+
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre completo</th>
+                <th>Cédula</th>
+                <th>Año de graduación</th>
+                <th>Sede</th>
+                <th>Programa</th>
+                <th>Género</th>
+                <th>Celular</th>
+                <th>Correo</th>
+                <th>País</th>
+                <th>Ciudad</th>
+                <th>Temas de interés</th>
+                <th>Área de bienestar</th>
+                <th>Otras actividades</th>
+                <th>Tipo de evento</th>
+                <th>Modalidad</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in datos %}
+            <tr>
+                <td>{{ dato.nombre_completo }}</td>
+                <td>{{ dato.cédula }}</td>
+                <td>{{ dato.año_de_graduacion }}</td>
+                <td>{{ dato.sede }}</td>
+                <td>{{ dato.programa }}</td>
+                <td>{{ dato.genero }}</td>
+                <td>{{ dato.celular }}</td>
+                <td>{{ dato.correo }}</td>
+                <td>{{ dato.país_de_residencia }}</td>
+                <td>{{ dato.ciudad_de_residencia }}</td>
+                <td>{{ dato.temas_eventos }}</td>
+                <td>{{ dato.areas_bienestar }}</td>
+                <td>{{ dato.otras_actividades }}</td>
+                <td>{{ dato.tipo_evento }}</td>
+                <td>{{ dato.modalidad_evento }}</td>
+                <td>{{ dato.observaciones }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="17">No hay registros.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

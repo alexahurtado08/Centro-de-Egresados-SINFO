@@ -4,6 +4,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterUserForm
+from .models import Perfil
 
 def inicio(request):
     return render(request, 'inicio.html')
@@ -38,7 +39,7 @@ def registro(request):
         if form.is_valid():
             form.save()  # Solo guardamos el usuario, sin autenticación
             messages.success(request, "Registro exitoso. Ahora inicia sesión.")
-            return redirect('home')  
+            return redirect('login')  
     else:
         form = RegisterUserForm()
 
