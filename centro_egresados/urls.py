@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from formulario import views as formulario_views
 from . import views as base_views
 
 urlpatterns = [
@@ -23,5 +24,6 @@ urlpatterns = [
     path('', include('User.urls')),
     path('home/', base_views.home, name='home'),
     path('formulario/', include('formulario.urls')),
-    path('', include('formulario.urls')),
+    path('usuarios/', formulario_views.lista_datos_usuarios, name='lista_usuarios'),
+
 ]
