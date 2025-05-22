@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('User.urls')),
     path('home/', base_views.home, name='home'),
     path('formulario/', include('formulario.urls')),
+    path('', include('formulario.urls')),
 ]
