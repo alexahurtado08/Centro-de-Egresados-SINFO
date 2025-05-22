@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_countries',
     'User',
     'formulario',
+    'import_export',
 ]
 
 MIDDLEWARE = [

@@ -22,3 +22,4 @@ def formulario(request):
         form = DatosUsuarioForm(instance=datos)
 
     return render(request, 'formulario/formulario.html', {'form': form})
+

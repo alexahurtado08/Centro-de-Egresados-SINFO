@@ -20,7 +20,12 @@
             <div class="d-flex">
                 {% if user.is_authenticated %}
                     <span class="me-3">Hola, {{ user.username }}</span>
-                    <a class="btn btn-outline-danger btn-sm" href="{% url 'logout' %}">Cerrar sesión</a>
+                    {% if user.is_superuser %}
+                        <a class="btn btn-warning btn-sm me-2" href="{% url 'admin_home' %}">
+                            Panel de Administrador
+                        </a>
+                    {% endif %}
+                <a class="btn btn-outline-danger btn-sm" href="{% url 'logout' %}">Cerrar sesión</a>
                 {% else %}
                     <a class="btn btn-outline-primary btn-sm me-2" href="{% url 'login' %}">Login</a>
                     <a class="btn btn-outline-success btn-sm" href="{% url 'registro' %}">Registro</a>

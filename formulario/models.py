@@ -68,4 +68,5 @@ class DatosUsuario(models.Model):
     observaciones = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.nombres_apellidos}"
+        return f"{self.user.username} - {self.nombre_completo}"
+
