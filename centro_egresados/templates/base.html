@@ -14,25 +14,27 @@
 <body class="bg-light">
 
     <!-- Barra de navegación opcional -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="/">Mi Sitio</a>
-            <div class="d-flex">
-                {% if user.is_authenticated %}
-                    <span class="me-3">Hola, {{ user.username }}</span>
-                    {% if user.is_superuser %}
-                        <a class="btn btn-warning btn-sm me-2" href="{% url 'admin_home' %}">
-                            Panel de Administrador
-                        </a>
-                    {% endif %}
-                <a class="btn btn-outline-danger btn-sm" href="{% url 'logout' %}">Cerrar sesión</a>
-                {% else %}
-                    <a class="btn btn-outline-primary btn-sm me-2" href="{% url 'login' %}">Login</a>
-                    <a class="btn btn-outline-success btn-sm" href="{% url 'registro' %}">Registro</a>
+   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+       
+        
+        <div class="d-flex ms-auto">
+            {% if user.is_authenticated %}
+                <span class="me-3">Hola, {{ user.first_name }}</span>
+
+                {% if user.is_superuser %}
+                    <a class="btn btn-warning btn-sm me-2" href="{% url 'admin_home' %}">Panel de Administrador</a>
+                    <a class="btn btn-light btn-sm" href="{% url 'lista_usuarios' %}">Base de datos</a>
                 {% endif %}
-            </div>
+                <a class="btn btn-outline-danger btn-sm" href="{% url 'logout' %}">Cerrar sesión</a>
+            {% else %}
+                <a class="btn btn-outline-primary btn-sm me-2" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-outline-success btn-sm" href="{% url 'registro' %}">Registro</a>
+            {% endif %}
         </div>
-    </nav>
+    </div>
+</nav>
+
 
     <!-- Contenido principal -->
     <main class="container mt-5">

@@ -19,6 +19,7 @@ from django.urls import path, include
 from formulario import views as formulario_views
 from . import views as base_views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('User.urls')),
