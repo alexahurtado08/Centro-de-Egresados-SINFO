@@ -1,13 +1,76 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Bienvenido{% endblock %}
+{% block title %}Portal de Egresados{% endblock %}
 
 {% block content %}
-<div class="d-flex flex-column justify-content-center align-items-center" style="height: 60vh;">
-    <h1 class="mb-4">Bienvenido a Mi Sitio</h1>
-    <div class="d-grid gap-3 col-6 col-md-4">
-        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Iniciar sesión</a>
-        <a href="{% url 'registro' %}" class="btn btn-success btn-lg">Registrarse</a>
+<style>
+    .center-content {
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        color: #004e7f;
+    }
+    .center-content h1 {
+        font-size: 8vw;
+        line-height: 1.2;
+    }
+    .sub-text {
+        color: #de8501;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    .btn-ingresar, .btn-registrate {
+        font-weight: bold;
+        padding: 15px 50px;
+        font-size: 1.25rem;
+        border-radius: 0;
+        text-decoration: none;
+        margin: 10px 10px 0 10px;
+        width: 200px;
+    }
+    .btn-ingresar {
+        background-color: #004e7f;
+        color: white;
+        border: none;
+    }
+    .btn-ingresar:hover {
+        background-color: #003b60;
+    }
+    .btn-registrate {
+        background-color: #de8501;
+        color: white;
+        border: none;
+    }
+    .btn-registrate:hover {
+        background-color: #b26d00;
+    }
+    .logo-superior {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        width: 150px;
+    }
+    .egresados-logo {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        width: 180px;
+    }
+</style>
+
+<img src="{% static 'img/logo_universidad.png' %}" alt="Logo universidad" class="logo-superior">
+<img src="{% static 'img/egresados_cerca.png' %}" alt="Egresados + cerca" class="egresados-logo">
+
+<div class="center-content">
+    <h1 class="fw-bold">Bienvenido a<br>Tu portal de<br>Egresados</h1>
+    <p class="sub-text mt-3">Selecciona una opción para continuar</p>
+    <div>
+        <a href="{% url 'login' %}" class="btn btn-ingresar">Ingresar</a>
+        <a href="{% url 'registro' %}" class="btn btn-registrate">Regístrate</a>
     </div>
 </div>
 {% endblock %}
