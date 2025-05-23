@@ -66,7 +66,12 @@ def cargar_excel(request):
             df = pd.read_excel(archivo)
 
             for _, row in df.iterrows():
-                user, created = User.objects.get_or_create(username=row['correo'], defaults={'email': row['correo']})
+                user, created = User.objects.get_or_create(username=row['cedula'],defaults={'email': row['cedula']})
+
+                if created:
+                    user.set_password(str(row['cedula']))  # Usa la cédula como contraseña
+                    user.save()
+
                 
                 DatosUsuario.objects.update_or_create(
                     user=user,
