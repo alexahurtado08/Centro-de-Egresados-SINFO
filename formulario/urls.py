@@ -7,5 +7,7 @@ urlpatterns = [
     path('exportar-excel/', views.exportar_excel, name='exportar_excel'),
     path('cargar-excel/', views.cargar_excel, name='cargar_excel'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('editar/<int:pk>/', views.datosusuario_editar, name='datosusuario_editar'),
+    path('eliminar/<int:pk>/', views.datosusuario_eliminar, name='datosusuario_eliminar'),
 
 ]
