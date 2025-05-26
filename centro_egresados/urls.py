@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from formulario import views as formulario_views
 from . import views as base_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -27,4 +29,4 @@ urlpatterns = [
     path('formulario/', include('formulario.urls')),
     path('usuarios/', formulario_views.lista_datos_usuarios, name='lista_usuarios'),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
