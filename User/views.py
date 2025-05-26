@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterUserForm
 from .models import Perfil
 from django.contrib.auth.decorators import login_required
+from formulario.models import ImagenFormulario
+from formulario.forms import ImagenFormularioForm
 
 def inicio(request):
     return render(request, 'inicio.html')
@@ -54,3 +56,18 @@ def registro(request):
 def admin_home(request):
     return render(request, 'admin_home.html')
 
+
+
+def editar_imagen_formulario(request):
+    # Obtiene la primera imagen o None si no existe
+    imagen_instance = ImagenFormulario.objects.first()
+
+    if request.method == 'POST':
+        form = ImagenFormularioForm(request.POST, request.FILES, instance=imagen_instance)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_home')  # Redirige a admin_home después de guardar
+    else:
+        form = ImagenFormularioForm(instance=imagen_instance)
+
+    return render(request, 'editar_imagen_formulario.html', {'form': form})

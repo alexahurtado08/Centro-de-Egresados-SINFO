@@ -55,3 +55,9 @@ class DatosUsuario(models.Model):
     OtrasActividades = models.TextField()
     observaciones = models.TextField(blank=True)
 
+class ImagenFormulario(models.Model):
+    titulo = models.CharField(max_length=100, blank=True)
+    imagen = models.ImageField(upload_to='imagenes_egresados/', blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo or "Imagen del Formulario"
