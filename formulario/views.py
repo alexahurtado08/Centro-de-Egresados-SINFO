@@ -1,6 +1,5 @@
 # formulario/views.py
 from django.shortcuts import render, redirect
-from .forms import DatosUsuarioForm
 from .models import DatosUsuario
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -8,13 +7,11 @@ from import_export.formats.base_formats import XLSX
 from .admin import DatosUsuarioResource
 import pandas as pd
 from .forms import CargarExcelForm
-from .models import DatosUsuario
 from django.contrib.auth.models import User
 import pandas as pd
-from django.shortcuts import redirect
-from .models import DatosUsuario
-from django.contrib.auth.models import User
+from .forms import DatosUsuarioForm
 from django.contrib import messages
+from django.db.models import Count
 
 
 @login_required
@@ -100,3 +97,38 @@ def cargar_excel(request):
             messages.error(request, f"Error al cargar el archivo: {e}")
     
     return redirect('lista_usuarios')  # o al template que uses
+
+
+
+def dashboard(request):
+    # Total egresados por año
+    egresados_por_anio = (
+        DatosUsuario.objects
+        .values('AñoGraduacion')
+        .annotate(total=Count('id'))
+        .order_by('AñoGraduacion')
+    )
+
+    # Total egresados por programa
+    egresados_por_programa = (
+        DatosUsuario.objects
+        .values('programa')
+        .annotate(total=Count('id'))
+        .order_by('programa')
+    )
+
+    # Total egresados por país
+    egresados_por_pais = (
+        DatosUsuario.objects
+        .values('pais')
+        .annotate(total=Count('id'))
+        .order_by('pais')
+    )
+
+    context = {
+        'egresados_por_anio': list(egresados_por_anio),
+        'egresados_por_programa': list(egresados_por_programa),
+        'egresados_por_pais': list(egresados_por_pais),
+    }
+
+    return render(request, 'formulario/dashboard.html', context)
