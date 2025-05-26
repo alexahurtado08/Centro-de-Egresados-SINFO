@@ -14,51 +14,67 @@
         text-align: center;
         color: #004e7f;
     }
+
     .center-content h1 {
         font-size: 8vw;
         line-height: 1.2;
     }
+
     .sub-text {
         color: #de8501;
         font-weight: bold;
         font-size: 1.5rem;
     }
+
     .btn-ingresar, .btn-registrate {
         font-weight: bold;
         padding: 15px 50px;
         font-size: 1.25rem;
         border-radius: 0;
         text-decoration: none;
-        margin: 10px 10px 0 10px;
+        margin: 10px;
         width: 200px;
     }
+
     .btn-ingresar {
         background-color: #004e7f;
         color: white;
         border: none;
     }
+
     .btn-ingresar:hover {
         background-color: #003b60;
     }
+
     .btn-registrate {
         background-color: #de8501;
         color: white;
         border: none;
     }
+
     .btn-registrate:hover {
         background-color: #b26d00;
     }
+
     .logo-superior {
         position: absolute;
         top: 30px;
         right: 30px;
         width: 150px;
     }
+
     .egresados-logo {
         position: absolute;
         bottom: 30px;
         left: 30px;
         width: 180px;
+    }
+
+    .botonera {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
     }
 </style>
 
@@ -67,7 +83,11 @@
 
 <div class="center-content">
     <h1 class="fw-bold">Sistema<br>de actualización<br> de Egresados</h1>
-        <a href ="#" class="btn btn-ingresar">Enviar Alerta </a>
+    <div class="botonera">
+        <a href ="#" class="btn btn-ingresar">Enviar Alerta <br>📢</a>
+        <a href ="{% url 'dashboard' %}" class="btn btn-ingresar">Ver estadísticas <br>📊</a>
+        <a href ="{% url 'lista_usuarios' %}" class="btn btn-ingresar">Base de datos <br>🗂️</a>
     </div>
 </div>
 {% endblock %}
+

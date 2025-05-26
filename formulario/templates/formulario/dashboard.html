@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard de Egresados</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; }
+        h2 { color: #07517f; margin-bottom: 1rem; }
+        canvas { max-width: 100%; margin-bottom: 50px; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .btn-volver {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #004e7f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-volver:hover {
+            background-color: #003b60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'admin_home' %}" class="btn-volver">← Volver al Inicio Admin</a>
+        <h2>📊 Dashboard de Egresados</h2>
+
+        <h3>1. Total de egresados por año</h3>
+        <canvas id="anioChart"></canvas>
+
+        <h3>2. Total de egresados por programa</h3>
+        <canvas id="programaChart"></canvas>
+
+        <h3>3. Total de egresados por país</h3>
+        <canvas id="paisChart"></canvas>
+    </div>
+
+    <script>
+        // Datos pasados desde la vista Django
+        const egresadosAnio = {{ egresados_por_anio|safe }};
+        const egresadosPrograma = {{ egresados_por_programa|safe }};
+        const egresadosPais = {{ egresados_por_pais|safe }};
+
+        // Gráfico de egresados por año
+        new Chart(document.getElementById('anioChart'), {
+            type: 'bar',
+            data: {
+                labels: egresadosAnio.map(e => e.AñoGraduacion),
+                datasets: [{
+                    label: 'Egresados',
+                    data: egresadosAnio.map(e => e.total),
+                    backgroundColor: '#07517f'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Gráfico de egresados por programa (horizontal)
+        new Chart(document.getElementById('programaChart'), {
+            type: 'bar',
+            data: {
+                labels: egresadosPrograma.map(e => e.programa),
+                datasets: [{
+                    label: 'Egresados',
+                    data: egresadosPrograma.map(e => e.total),
+                    backgroundColor: '#0a9396'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Gráfico de egresados por país (pastel)
+        new Chart(document.getElementById('paisChart'), {
+            type: 'pie',
+            data: {
+                labels: egresadosPais.map(e => e.pais),
+                datasets: [{
+                    label: 'Egresados',
+                    data: egresadosPais.map(e => e.total),
+                    backgroundColor: [
+                        '#94d2bd', '#e9d8a6', '#ee9b00', '#ca6702', '#bb3e03', '#ae2012',
+                        '#d00000', '#6a4c93', '#1982c4', '#8ac926'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+        });
+    </script>
+</body>
+</html>

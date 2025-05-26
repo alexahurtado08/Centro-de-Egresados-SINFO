@@ -13,6 +13,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         h1, h2 {
@@ -22,11 +23,14 @@
 
         .button-group {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
+            align-items: center;
         }
 
         .button-group button,
-        .button-group a {
+        .button-group a,
+        .boton-uniforme {
             background-color: #07517f;
             color: white;
             padding: 8px 16px;
@@ -38,7 +42,8 @@
         }
 
         .button-group button:hover,
-        .button-group a:hover {
+        .button-group a:hover,
+        .boton-uniforme:hover {
             background-color: #063b5d;
         }
 
@@ -76,17 +81,22 @@
         form button {
             margin-top: 10px;
         }
+
+        input[type="file"] {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h2>Base de datos</h2>
         <div class="button-group">
+            <a href="{% url 'admin_home' %}">Volver al inicio</a>
             <a href="{% url 'exportar_excel' %}">Descargar</a>
-            <form action="{% url 'cargar_excel' %}" method="post" enctype="multipart/form-data" style="display:inline;">
+            <form action="{% url 'cargar_excel' %}" method="post" enctype="multipart/form-data" style="display: flex; align-items: center; gap: 10px;">
                 {% csrf_token %}
                 <input type="file" name="archivo_excel" accept=".xls,.xlsx" required>
-                <button type="submit">Cargar</button>
+                <button type="submit" class="boton-uniforme">Cargar</button>
             </form>
         </div>
     </div>
@@ -94,7 +104,7 @@
     <!-- Filtro Django -->
     <form method="get">
         {{ filter.form.as_p }}
-        <button type="submit">Filtrar</button>
+        <button type="submit" class="boton-uniforme">Filtrar</button>
     </form>
 
     <table>
