@@ -85,6 +85,15 @@
         input[type="file"] {
             font-size: 14px;
         }
+
+        .acciones {
+            display: flex;
+            gap: 5px;
+        }
+
+        .acciones form {
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -124,6 +133,7 @@
                 <th>Área de bienestar</th>
                 <th>Otras actividades</th>
                 <th>Observaciones</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -143,11 +153,16 @@
                 <td>{{ dato.AreasBienestar }}</td>
                 <td>{{ dato.OtrasActividades }}</td>
                 <td>{{ dato.observaciones }}</td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="14">No hay registros.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+                <td>
+                 <a href="{% url 'datosusuario_editar' dato.pk %}" class="boton-uniforme">Editar</a>
+                <form action="{% url 'datosusuario_eliminar' dato.pk %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="boton-uniforme" onclick="return confirm('¿Seguro que deseas eliminar este registro?');">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="15">No hay registros.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>

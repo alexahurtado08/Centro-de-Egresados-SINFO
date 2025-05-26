@@ -1,5 +1,5 @@
 # formulario/views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, redirect
 from .models import DatosUsuario
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 import pandas as pd
 from .forms import DatosUsuarioForm
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 from django.db.models import Count
 
 
@@ -132,3 +133,25 @@ def dashboard(request):
     }
 
     return render(request, 'formulario/dashboard.html', context)
+
+
+
+
+
+def datosusuario_editar(request, pk):
+    dato = get_object_or_404(DatosUsuario, pk=pk)
+    if request.method == 'POST':
+        form = DatosUsuarioForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_usuarios')  # Ajusta esto
+    else:
+        form = DatosUsuarioForm(instance=dato)
+    return render(request, 'formulario/editar_egresado.html', {'form': form})
+
+
+@require_POST
+def datosusuario_eliminar(request, pk):
+    dato = get_object_or_404(DatosUsuario, pk=pk)
+    dato.delete()
+    return redirect('lista_usuarios')  # Ajusta esto

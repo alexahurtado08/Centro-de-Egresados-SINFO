@@ -2,6 +2,7 @@
 from django import forms
 from .models import DatosUsuario
 
+
 class DatosUsuarioForm(forms.ModelForm):
     class Meta:
         model = DatosUsuario
@@ -32,3 +33,5 @@ class DatosUsuarioForm(forms.ModelForm):
             
 class CargarExcelForm(forms.Form):
     archivo_excel = forms.FileField()
+    
+
