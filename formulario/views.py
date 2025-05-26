@@ -37,9 +37,12 @@ def formulario(request):
     return render(request, 'formulario/formulario.html', {'form': form})
 
 
+from .filters import DatosUsuarioFilter
+
 def lista_datos_usuarios(request):
-    datos = DatosUsuario.objects.all()  # obtiene todos los registros
-    return render(request, 'formulario/lista_datos_usuarios.html', {'datos': datos})
+    datos = DatosUsuario.objects.all()
+    filtro = DatosUsuarioFilter(request.GET, queryset=datos)
+    return render(request, 'formulario/lista_datos_usuarios.html', {'filter': filtro})
 
 
 

@@ -15,7 +15,7 @@
             align-items: center;
         }
 
-        h1 {
+        h1, h2 {
             color: #07517f;
             margin: 0;
         }
@@ -25,7 +25,8 @@
             gap: 10px;
         }
 
-        .button-group button {
+        .button-group button,
+        .button-group a {
             background-color: #07517f;
             color: white;
             padding: 8px 16px;
@@ -33,16 +34,18 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
+            text-decoration: none;
         }
 
-        .button-group button:hover {
+        .button-group button:hover,
+        .button-group a:hover {
             background-color: #063b5d;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         th {
@@ -60,26 +63,39 @@
         tr:hover {
             background-color: #f2f2f2;
         }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form p {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        form button {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-    <h2 style="margin: 0;">Base de datos</h2>
-    <div style="margin-left: auto;">
-        <a href="{% url 'exportar_excel' %}" style="background-color: #07517f; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-left: 10px;">Descargar</a>
-        <form action="{% url 'cargar_excel' %}" method="post" enctype="multipart/form-data" style="display:inline;">
-    {% csrf_token %}
-    <input type="file" name="archivo_excel" accept=".xls,.xlsx" required>
-    <button type="submit" style="background-color: #07517f; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Cargar</button>
-</form>
-
+        <h2>Base de datos</h2>
+        <div class="button-group">
+            <a href="{% url 'exportar_excel' %}">Descargar</a>
+            <form action="{% url 'cargar_excel' %}" method="post" enctype="multipart/form-data" style="display:inline;">
+                {% csrf_token %}
+                <input type="file" name="archivo_excel" accept=".xls,.xlsx" required>
+                <button type="submit">Cargar</button>
+            </form>
+        </div>
     </div>
-</div>
 
-</div>
-
-    </div>
+    <!-- Filtro Django -->
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit">Filtrar</button>
+    </form>
 
     <table>
         <thead>
@@ -92,8 +108,8 @@
                 <th>Género</th>
                 <th>Celular</th>
                 <th>Correo</th>
-                <<th>Pais</th>>
-                <<th>Ciudad</th>>
+                <th>País</th>
+                <th>Ciudad</th>
                 <th>Temas de interés</th>
                 <th>Área de bienestar</th>
                 <th>Otras actividades</th>
@@ -101,7 +117,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for dato in datos %}
+            {% for dato in filter.qs %}
             <tr>
                 <td>{{ dato.AñoGraduacion }}</td>
                 <td>{{ dato.sede }}</td>
@@ -119,7 +135,7 @@
                 <td>{{ dato.observaciones }}</td>
             </tr>
             {% empty %}
-            <tr><td colspan="17">No hay registros.</td></tr>
+            <tr><td colspan="14">No hay registros.</td></tr>
             {% endfor %}
         </tbody>
     </table>
