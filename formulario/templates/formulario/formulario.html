@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Formulario de Egresados{% endblock %}
 
@@ -34,8 +35,9 @@
 
     <!-- Columna de la imagen, alineada arriba -->
     <div class="col-md-4 d-flex align-items-start justify-content-center">
-      <img src="{{ imagen_url }}" alt="Imagen lateral" class="img-fluid rounded" style="max-height: 400px;">
-    </div>
-  </div>
-</div>
+      {% if imagen_url %}
+  <img src="{{ imagen_url }}" alt="Imagen lateral" class="img-fluid rounded" style="max-height: 400px;">
+{% else %}
+  <p>No hay imagen disponible.</p>
+{% endif %}
 {% endblock %}

@@ -86,22 +86,42 @@
             }
         });
 
-        // Gráfico de egresados por país (pastel)
+        // Colores para cada país (ajusta según el número de países)
+        const coloresPaises = [
+            '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
+            '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe',
+            '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000'
+        ];
+
+        // Gráfico de egresados por país (barras horizontales con colores diferentes)
         new Chart(document.getElementById('paisChart'), {
-            type: 'pie',
+            type: 'bar',
             data: {
                 labels: egresadosPais.map(e => e.pais),
                 datasets: [{
                     label: 'Egresados',
                     data: egresadosPais.map(e => e.total),
-                    backgroundColor: [
-                        '#94d2bd', '#e9d8a6', '#ee9b00', '#ca6702', '#bb3e03', '#ae2012',
-                        '#d00000', '#6a4c93', '#1982c4', '#8ac926'
-                    ]
+                    backgroundColor: coloresPaises.slice(0, egresadosPais.length)
                 }]
             },
             options: {
+                indexAxis: 'y',
                 responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Cantidad de egresados'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'País'
+                        }
+                    }
+                }
             }
         });
     </script>

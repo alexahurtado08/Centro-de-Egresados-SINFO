@@ -13,44 +13,37 @@ from .forms import DatosUsuarioForm
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.db.models import Count
-
-
 from .models import ImagenFormulario
+from .filters import DatosUsuarioFilter
 
 @login_required
 def formulario(request):
     try:
-        datos = DatosUsuario.objects.get(user=request.user)
+        datos_usuario = DatosUsuario.objects.get(user=request.user)
     except DatosUsuario.DoesNotExist:
-        datos = None
-
-    # Obtener la imagen del banner si existe (usamos la primera)
-    imagen_obj = ImagenFormulario.objects.first()
-    imagen_url = imagen_obj.imagen.url if imagen_obj else ''
+        datos_usuario = None
 
     if request.method == 'POST':
-        form = DatosUsuarioForm(request.POST, instance=datos)
+        form = DatosUsuarioForm(request.POST, instance=datos_usuario)
         if form.is_valid():
-            datos_usuario = form.save(commit=False)
-            datos_usuario.user = request.user
-            datos_usuario.save()
+            datos = form.save(commit=False)
+            datos.user = request.user
+            datos.save()
             return redirect('home')
     else:
-        form = DatosUsuarioForm(instance=datos)
+        form = DatosUsuarioForm(instance=datos_usuario)
+
+    # Obtener la última imagen cargada
+    imagen_obj = ImagenFormulario.objects.last()
+    imagen_url = imagen_obj.imagen.url if imagen_obj and imagen_obj.imagen else None
 
     return render(request, 'formulario/formulario.html', {'form': form, 'imagen_url': imagen_url})
 
-
-
-from .filters import DatosUsuarioFilter
 
 def lista_datos_usuarios(request):
     datos = DatosUsuario.objects.all()
     filtro = DatosUsuarioFilter(request.GET, queryset=datos)
     return render(request, 'formulario/lista_datos_usuarios.html', {'filter': filtro})
-
-
-
 
 
 def exportar_excel(request):
@@ -63,8 +56,6 @@ def exportar_excel(request):
     response = HttpResponse(export_data, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename="base_datos_usuarios.xlsx"'
     return response
-
-
 
 
 def cargar_excel(request):
@@ -140,7 +131,6 @@ def dashboard(request):
     }
 
     return render(request, 'formulario/dashboard.html', context)
-
 
 
 
