@@ -9,5 +9,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('editar/<int:pk>/', views.datosusuario_editar, name='datosusuario_editar'),
     path('eliminar/<int:pk>/', views.datosusuario_eliminar, name='datosusuario_eliminar'),
+    path('enviar-alerta/', views.enviar_correo_power_automate, name='enviar_alerta'),
 
 ]

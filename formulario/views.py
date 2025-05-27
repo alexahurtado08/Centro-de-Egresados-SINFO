@@ -13,6 +13,8 @@ from .forms import DatosUsuarioForm
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.db.models import Count
+import subprocess
+
 
 
 @login_required
@@ -44,6 +46,10 @@ def lista_datos_usuarios(request):
 
 
 
+def ejecutar_verificacion_manual(request):
+    #subprocess.call(['python', 'manage.py', 'verificar_usuarios'])
+    messages.success(request, "La verificación fue ejecutada exitosamente.")
+    return redirect('admin_home')  
 
 
 def exportar_excel(request):

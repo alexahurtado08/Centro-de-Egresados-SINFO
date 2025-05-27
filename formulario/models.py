@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from django.utils import timezone
+
+
 
 class DatosUsuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
@@ -54,4 +57,5 @@ class DatosUsuario(models.Model):
     AreasBienestar = observaciones = models.TextField(blank=True)
     OtrasActividades = models.TextField()
     observaciones = models.TextField(blank=True)
+    fecha_actualizacion = models.DateTimeField(default=timezone.now)
 
