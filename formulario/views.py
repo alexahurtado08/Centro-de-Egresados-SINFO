@@ -17,6 +17,8 @@ import subprocess
 
 
 
+from .models import ImagenFormulario
+
 @login_required
 def formulario(request):
     try:
@@ -24,17 +26,22 @@ def formulario(request):
     except DatosUsuario.DoesNotExist:
         datos = None
 
+    # Obtener la imagen del banner si existe (usamos la primera)
+    imagen_obj = ImagenFormulario.objects.first()
+    imagen_url = imagen_obj.imagen.url if imagen_obj else ''
+
     if request.method == 'POST':
         form = DatosUsuarioForm(request.POST, instance=datos)
         if form.is_valid():
             datos_usuario = form.save(commit=False)
             datos_usuario.user = request.user
             datos_usuario.save()
-            return redirect('home')  
+            return redirect('home')
     else:
         form = DatosUsuarioForm(instance=datos)
 
-    return render(request, 'formulario/formulario.html', {'form': form})
+    return render(request, 'formulario/formulario.html', {'form': form, 'imagen_url': imagen_url})
+
 
 
 from .filters import DatosUsuarioFilter

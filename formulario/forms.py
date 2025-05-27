@@ -1,6 +1,7 @@
 # formulario/forms.py
 from django import forms
 from .models import DatosUsuario
+from .models import ImagenFormulario
 
 
 class DatosUsuarioForm(forms.ModelForm):
@@ -35,3 +36,8 @@ class CargarExcelForm(forms.Form):
     archivo_excel = forms.FileField()
     
 
+
+class ImagenFormularioForm(forms.ModelForm):
+    class Meta:
+        model = ImagenFormulario
+        fields = ['titulo', 'imagen']
