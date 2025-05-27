@@ -14,22 +14,30 @@ class DatosUsuarioForm(forms.ModelForm):
             'sede': 'Sede a la que pertenece',
             'programa': 'Programa o programas de los que egresó',
             'NombreCompleto': 'Nombres y apellidos completos',
-            'cédula': 'Cédula sin puntos ni comas',
+            'cedula': 'Número de Cédula (sin puntos ni comas)',
             'genero': 'Género',
-            'celular': 'Teléfono celular sin puntos ni comas',
+            'celular': 'Teléfono celular (sin puntos ni comas)',
             'correo': 'Correo electrónico personal',
             'pais': 'País de residencia',
             'ciudad': 'Ciudad de residencia',
-            'TemasEventos': 'Qué temas le gustaría que se desarrollaran en los eventos académicos o de educación continua para su actualización?',
-            'AreasBienestar': 'Indique en que áreas le gustaría que se desarrollaran actividades de bienestar institucional dirigidas a los egresados',
-            'OtrasActividades': 'Indique que otras actividades y/o beneficios le gustaría que la institución le brinde como egresado',
+            'TemasEventos': 'Temas de interés',
+            'AreasBienestar': 'Áreas de bienestar',
+            'OtrasActividades': 'Otras actividades',
             'observaciones': 'Observaciones y sugerencias',
         }
 
     def __init__(self, *args, **kwargs):
-        super(DatosUsuarioForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
+        super().__init__(*args, **kwargs)
+
+        # Campos que deben ser solo lectura para el estudiante
+        campos_solo_lectura = ['NombreCompleto', 'cedula', 'sede', 'programa']
+
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs.update({'class': 'form-control'})
+
+            if field_name in campos_solo_lectura:
+                self.fields[field_name].disabled = True  # Esto los hace "solo lectura"
+
             
             
 class CargarExcelForm(forms.Form):
