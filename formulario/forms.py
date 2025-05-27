@@ -7,7 +7,7 @@ from .models import ImagenFormulario
 class DatosUsuarioForm(forms.ModelForm):
     class Meta:
         model = DatosUsuario
-        exclude = ['user']
+        exclude = ['user', 'fecha_actualizacion']
         
         labels = {
             'AñoGraduacion': 'Año de graduación',
