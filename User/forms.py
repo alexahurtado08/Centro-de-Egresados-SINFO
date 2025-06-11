@@ -6,7 +6,7 @@ from formulario.models import DatosUsuario
 from User.validators import UsernameEqualsPasswordValidator
 import re
 
-
+# Formulario de registro de usuario personalizado
 class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
@@ -16,6 +16,7 @@ class RegisterUserForm(UserCreationForm):
             'username': 'Número de cédula',
         }
 
+    # Validación personalizada del campo 'username' (cédula)
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if not username:
@@ -24,17 +25,23 @@ class RegisterUserForm(UserCreationForm):
             raise ValidationError("La cédula debe tener entre 8 y 10 dígitos numéricos.")
         return username
 
+    # Validación general del formulario
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get("username")
         password1 = cleaned_data.get("password1")
 
+        # Aplica validador personalizado para contraseña
         if username and password1:
             validator = UsernameEqualsPasswordValidator()
+
+            # Objeto temporal para validar el username con la contraseña
             class TempUser:
                 def __init__(self, username):
                     self.username = username
+
             temp_user = TempUser(username)
+
             try:
                 validator.validate(password1, temp_user)
             except ValidationError as e:
@@ -43,11 +50,11 @@ class RegisterUserForm(UserCreationForm):
         return cleaned_data
 
 
+# Formulario para registrar información adicional del usuario (admin)
 class DatosUsuarioFormAdmin(forms.ModelForm):
     class Meta:
         model = DatosUsuario
-        fields = ['NombreCompleto', 'cedula','programa', 'sede', 'AñoGraduacion']
-
+        fields = ['NombreCompleto', 'cedula', 'programa', 'sede', 'AñoGraduacion']
         labels = {
             'AñoGraduacion': 'Año de graduación',
             'sede': 'Sede a la que pertenece',
@@ -56,8 +63,8 @@ class DatosUsuarioFormAdmin(forms.ModelForm):
             'cedula': 'Cédula sin puntos ni comas',
         }
 
+    # Asigna clase CSS a los campos del formulario
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})

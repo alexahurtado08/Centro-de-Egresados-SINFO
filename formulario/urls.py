@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.formulario, name='formulario'),
@@ -11,4 +13,4 @@ urlpatterns = [
     path('eliminar/<int:pk>/', views.datosusuario_eliminar, name='datosusuario_eliminar'),
     path('enviar-alerta/', views.ejecutar_verificacion_manual, name='enviar_alerta'),
 
-]
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
