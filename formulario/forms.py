@@ -4,14 +4,11 @@ from .models import DatosUsuario
 from .models import ImagenFormulario
 
 
-from django import forms
-from .models import DatosUsuario
-
 class DatosUsuarioForm(forms.ModelForm):
     class Meta:
         model = DatosUsuario
-        exclude = ['user']
-
+        exclude = ['user', 'fecha_actualizacion']
+        
         labels = {
             'AñoGraduacion': 'Año de graduación',
             'sede': 'Sede a la que pertenece',

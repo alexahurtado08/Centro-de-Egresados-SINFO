@@ -2,6 +2,7 @@ from django.contrib import admin
 from import_export.admin import ExportMixin
 from import_export import resources
 from .models import DatosUsuario
+from .models import ImagenFormulario
 
 class DatosUsuarioResource(resources.ModelResource):
     class Meta:
@@ -29,3 +30,6 @@ class DatosUsuarioAdmin(ExportMixin, admin.ModelAdmin):
     list_filter = ('sede', 'programa', 'genero')
 
 admin.site.register(DatosUsuario, DatosUsuarioAdmin)
+admin.site.register(ImagenFormulario)
+
+
